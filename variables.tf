@@ -1,10 +1,6 @@
-variable "project" {
-  description = name of the project
-}
-
-variable "region" {
-  description = name of the region
-  default = "us-central1"
+variable "project_id" {
+  description = "GCP Project ID"
+  type        = string
 }
 
 variable "workspace_groups" {
@@ -19,37 +15,37 @@ variable "workspace_groups" {
       name        = "Bucket Group"
       description = "Group for Bucket IAM roles"
       members = {
-        viewer  = ["user:aa@bil.io", "user:ana@bil.io"]
-        editor  = ["user:aa@bil.io"]
-        auditor = ["user:aa@bil.io"]
-        admin   = ["user:aa@bil.io"]
+        read              = ["user:aa@bil.io", "user:ana@bil.io"]
+        read_write_delete = ["user:aa@bil.io"]
+        compliance_read   = ["user:aa@bil.io"]
+        full_access       = ["user:aa@bil.io"]
       }
     }
     "vpc-group@bil.io" = {
       name        = "VPC Group"
       description = "Group for VPC IAM roles"
       members = {
-        viewer  = ["user:aa@bil.io"]
-        editor  = ["user:aa@bil.io"]
-        auditor = ["user:aa@bil.io", "user:ana@bil.io"]
-        admin   = ["user:aa@bil.io"]
+        read              = ["user:aa@bil.io"]
+        read_write_delete = ["user:aa@bil.io"]
+        compliance_read   = ["user:aa@bil.io", "user:ana@bil.io"]
+        full_access       = ["user:aa@bil.io"]
       }
     }
     "artifact-group@bil.io" = {
       name        = "Artifact Group"
       description = "Group for Artifact Registry IAM roles"
       members = {
-        viewer  = ["user:aa@bil.io"]
-        editor  = ["user:aa@bil.io"]
-        auditor = ["user:aa@bil.io", "user:ana@bil.io"]
-        admin   = ["user:aa@bil.io"]
+        read              = ["user:aa@bil.io"]
+        read_write_delete = ["user:aa@bil.io"]
+        compliance_read   = ["user:aa@bil.io", "user:ana@bil.io"]
+        full_access       = ["user:aa@bil.io"]
       }
     }
     "iam-group@bil.io" = {
       name        = "IAM Group"
       description = "Group for IAM Admins"
       members = {
-        admin = ["user:aa@bil.io"]
+        full_access = ["user:aa@bil.io"]
       }
     }
   }

@@ -1,50 +1,3 @@
-variable "workspace_groups" {
-  type = map(object({
-    name        = string
-    description = string
-    members     = map(list(string)) # role => list of members
-  }))
-  default = {
-    "bucket-group@bil.io" = {
-      name        = "Bucket Group"
-      description = "Group for Bucket IAM roles"
-      members = {
-        viewer  = ["user:aa@bil.io", "user:ana@bil.io"]
-        editor  = ["user:aa@bil.io"]
-        auditor = ["user:aa@bil.io"]
-        admin   = ["user:aa@bil.io"]
-      }
-    }
-    "vpc-group@bil.io" = {
-      name        = "VPC Group"
-      description = "Group for VPC IAM roles"
-      members = {
-        viewer  = ["user:aa@bil.io"]
-        editor  = ["user:aa@bil.io"]
-        auditor = ["user:aa@bil.io", "user:ana@bil.io"]
-        admin   = ["user:aa@bil.io"]
-      }
-    }
-    "artifact-group@bil.io" = {
-      name        = "Artifact Group"
-      description = "Group for Artifact Registry IAM roles"
-      members = {
-        viewer  = ["user:aa@bil.io"]
-        editor  = ["user:aa@bil.io"]
-        auditor = ["user:aa@bil.io", "user:ana@bil.io"]
-        admin   = ["user:aa@bil.io"]
-      }
-    }
-    "iam-group@bil.io" = {
-      name        = "IAM Group"
-      description = "Group for IAM Admins"
-      members = {
-        admin = ["user:aa@bil.io"]
-      }
-    }
-  }
-}
-
 resource "googleworkspace_group" "groups" {
   for_each    = var.workspace_groups
   email       = each.key
@@ -66,4 +19,22 @@ resource "googleworkspace_group_membership" "group_memberships" {
   group  = each.value.group
   role   = "MEMBER"
   member = each.value.member
+}
+
+# ------------------------
+# Bindings for all resources
+# ------------------------
+resource "google_project_iam_binding" "bindings" {
+  for_each = {
+    for group_email, group_data in var.workspace_groups :
+    for role, _ in group_data.members :
+    "${group_email}-${role}" => {
+      group_email = group_email
+      role_name   = role
+    }
+  }
+
+  project = var.project_id
+  role    = "projects/${var.project_id}/roles/${each.value.role_name}"
+  members = ["group:${each.value.group_email}"]
 }

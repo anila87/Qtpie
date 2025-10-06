@@ -1,3 +1,6 @@
+# ------------------------
+# Workspace Groups
+# ------------------------
 resource "googleworkspace_group" "groups" {
   for_each    = var.workspace_groups
   email       = each.key
@@ -5,6 +8,9 @@ resource "googleworkspace_group" "groups" {
   description = each.value.description
 }
 
+# ------------------------
+# Group Memberships
+# ------------------------
 resource "googleworkspace_group_membership" "group_memberships" {
   for_each = {
     for group_email, group_data in var.workspace_groups :
@@ -22,7 +28,7 @@ resource "googleworkspace_group_membership" "group_memberships" {
 }
 
 # ------------------------
-# Bindings for all resources
+# IAM Bindings
 # ------------------------
 resource "google_project_iam_binding" "bindings" {
   for_each = {
@@ -30,7 +36,7 @@ resource "google_project_iam_binding" "bindings" {
     for role, _ in group_data.members :
     "${group_email}-${role}" => {
       group_email = group_email
-      role_name   = role
+      role_name   = title(replace(role, "_", ""))
     }
   }
 

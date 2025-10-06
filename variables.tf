@@ -2,23 +2,6 @@ variable "project_id" {
   description = "GCP Project ID"
   type        = string
 }
-variable "bucket_name" {
-  description = "Storage bucket name"
-  type        = string
-  default     = "my-project-bucket"
-}
-
-variable "vpc_name" {
-  description = "VPC network name"
-  type        = string
-  default     = "my-vpc-network"
-}
-
-variable "artifact_repo_name" {
-  description = "Artifact Registry repository ID"
-  type        = string
-  default     = "my-docker-repo"
-}
 
 variable "workspace_groups" {
   description = "Google Workspace groups with role-based members"
@@ -32,30 +15,50 @@ variable "workspace_groups" {
       name        = "Bucket Group"
       description = "Group for Bucket IAM roles"
       members = {
-        read              = ["user:aa@bil.io", "user:ana@bil.io"]
-        read_write_delete = ["user:aa@bil.io"]
-        compliance_read   = ["user:aa@bil.io"]
-        full_access       = ["user:aa@bil.io"]
+        read                  = ["user:aa@bil.io", "user:ana@bil.io"]
+        read_write_delete     = ["user:aa@bil.io"]
+        compliance_read       = ["user:aa@bil.io"]
+        full_access           = ["user:aa@bil.io"]
       }
     }
     "vpc-group@bil.io" = {
       name        = "VPC Group"
       description = "Group for VPC IAM roles"
       members = {
-        read              = ["user:aa@bil.io"]
-        read_write_delete = ["user:aa@bil.io"]
-        compliance_read   = ["user:aa@bil.io", "user:ana@bil.io"]
-        full_access       = ["user:aa@bil.io"]
+        read                  = ["user:aa@bil.io"]
+        read_write_delete     = ["user:aa@bil.io"]
+        compliance_read       = ["user:aa@bil.io", "user:ana@bil.io"]
+        full_access           = ["user:aa@bil.io"]
       }
     }
     "artifact-group@bil.io" = {
       name        = "Artifact Group"
       description = "Group for Artifact Registry IAM roles"
       members = {
-        read              = ["user:aa@bil.io"]
-        read_write_delete = ["user:aa@bil.io"]
-        compliance_read   = ["user:aa@bil.io", "user:ana@bil.io"]
-        full_access       = ["user:aa@bil.io"]
+        read                  = ["user:aa@bil.io"]
+        read_write_delete     = ["user:aa@bil.io"]
+        compliance_read       = ["user:aa@bil.io", "user:ana@bil.io"]
+        full_access           = ["user:aa@bil.io"]
+      }
+    }
+    "cloudrun-group@bil.io" = {
+      name        = "Cloud Run Group"
+      description = "Group for Cloud Run IAM roles"
+      members = {
+        read                  = ["user:aa@bil.io"]
+        read_write_delete     = ["user:aa@bil.io"]
+        compliance_read       = ["user:aa@bil.io"]
+        full_access           = ["user:aa@bil.io"]
+      }
+    }
+    "cloudfunc-group@bil.io" = {
+      name        = "Cloud Function Group"
+      description = "Group for Cloud Functions IAM roles"
+      members = {
+        read                  = ["user:aa@bil.io"]
+        read_write_delete     = ["user:aa@bil.io"]
+        compliance_read       = ["user:aa@bil.io"]
+        full_access           = ["user:aa@bil.io"]
       }
     }
     "iam-group@bil.io" = {

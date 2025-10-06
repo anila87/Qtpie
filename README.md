@@ -1,10 +1,10 @@
-#GCP Infrastructure & Access Management Automation
+# GCP Infrastructure & Access Management Automation
 
-##Overview
+# Overview
 
 This Terraform project provides a robust, scalable foundation for managing Google Cloud resources and access control. It automates the creation of key resources while enforcing fine-grained, role-based permissions, ensuring security, governance, and operational efficiency.
 
-#Resources Managed
+# Resources Managed
 
 The project provisions essential GCP resources required for most cloud workloads:
 
@@ -18,7 +18,7 @@ Cloud Run Services – serverless containerized applications
 
 Cloud Functions – event-driven serverless functions
 
-#Custom IAM Roles
+# Custom IAM Roles
 
 Each resource is associated with four custom IAM roles, designed for precise access control:
 
@@ -32,7 +32,7 @@ Full_Access – complete control, including policy management
 
 IAM Admin has a dedicated Full Access role for overall governance.
 
-#Groups and Memberships
+# Groups and Memberships
 
 Workspace groups mirror the roles, ensuring users are assigned permissions appropriately.
 
@@ -42,7 +42,7 @@ Membership mapping – members are assigned to roles per resource without manual
 
 Automatic IAM bindings – all permissions are applied to the right groups seamlessly.
 
-#Modular Structure
+# Modular Structure
 
 The project is organized into three key files:
 

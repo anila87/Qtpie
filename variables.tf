@@ -2,6 +2,23 @@ variable "project_id" {
   description = "GCP Project ID"
   type        = string
 }
+variable "bucket_name" {
+  description = "Storage bucket name"
+  type        = string
+  default     = "my-project-bucket"
+}
+
+variable "vpc_name" {
+  description = "VPC network name"
+  type        = string
+  default     = "my-vpc-network"
+}
+
+variable "artifact_repo_name" {
+  description = "Artifact Registry repository ID"
+  type        = string
+  default     = "my-docker-repo"
+}
 
 variable "workspace_groups" {
   description = "Google Workspace groups with role-based members"

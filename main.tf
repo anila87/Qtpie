@@ -1,3 +1,24 @@
+## Storage Bucket
+resource "google_storage_bucket" "my_bucket" {
+  name     = "my-project-bucket"
+  project  = var.project_id
+  location = "US"
+}
+
+## VPC Network
+resource "google_compute_network" "my_vpc" {
+  name                    = "my-vpc-network"
+  auto_create_subnetworks = true
+}
+
+## Artifact Registry Repo
+resource "google_artifact_registry_repository" "my_repo" {
+  name         = "my-artifact-repo"
+  repository_id = "my-docker-repo"
+  format       = "DOCKER"
+  location     = "us-central1"
+  project      = var.project_id
+}
 # ------------------------
 # Bucket Roles
 # ------------------------
